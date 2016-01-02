@@ -20,10 +20,10 @@ public class Solution {
         Dictionary<char, string> dict_p = new Dictionary<char, string>();
         Dictionary<string, char> dict_w = new Dictionary<string, char>();
         for(int i = 0; i < pattern.Length; i++){
-            if(dict_p.ContainsKey(pattern[i])) { // "aa" "dog big"
-                if (dict_p[pattern[i]] != words[i]) return false; 
+            if(dict_p.ContainsKey(pattern[i]) && dict_p[pattern[i]] != words[i]) { // "aa" "dog big"
+                return false; 
             }
-            else if(dict_w.ContainsKey(words[i])){  // "ab" "dog dog"
+            if(dict_w.ContainsKey(words[i]) && dict_w[words[i]] != pattern[i]){  // "ab" "dog dog"
                 return false;
             }
             dict_p[pattern[i]] = words[i];
