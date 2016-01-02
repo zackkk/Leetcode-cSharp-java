@@ -18,19 +18,25 @@ public class Solution : Reader4 {
      * @param n   Maximum number of characters to read
      * @return    The number of characters read
      */
-    // compare data available & data wanted
+    // The solution of "Read N Characters Given Read4 II" works for this question as well  
+    int buf4Count = 0;
+    int buf4Ptr = 0;
+    char[] buf4 = new char[4];
+    
     public int Read(char[] buf, int n) {
-        char[] buf4 = new char[4];
         int hasRead = 0;
         while(hasRead < n){
-            int a = Read4(buf4);   // data available
-            int b = n - hasRead;   // data wanted
-            for(int i = 0; i < Math.Min(a, b); i++){
-                buf[hasRead+i] = buf4[i];
+            if(buf4Count == 0) {  // no data left in buf4
+                buf4Count = Read4(buf4);
             }
-            hasRead += Math.Min(a, b);
-            if(a < 4) return hasRead; // file doesn't have enough data;
+            if(buf4Count == 0) break; // no data in the file
+            
+            while(buf4Ptr < buf4Count && hasRead < n){
+                buf[hasRead++] = buf4[buf4Ptr++];
+            }
+            
+            if(buf4Ptr >= buf4Count) { buf4Count = 0; buf4Ptr = 0; } // reset buf4
         }
-        return n;
+        return hasRead;
     }
 }
