@@ -23,23 +23,25 @@ Note: Recursive solution is trivial, could you do it iteratively?
  */
 
 public class Solution {
-    // one stack + one pointer
+    // stack
     // have to use the pointer to point to the right child
+    Stack<TreeNode> stack;
     public IList<int> InorderTraversal(TreeNode root) {
         IList<int> result = new List<int>();
-        Stack<TreeNode> stack = new Stack<TreeNode>();
-        TreeNode cur = root;
-        while(cur != null || stack.Count > 0){
-            while(cur != null){
-                stack.Push(cur);
-                cur = cur.left;
-            }
-            if(stack.Count > 0){
-                TreeNode node = stack.Pop();
-                result.Add(node.val);
-                cur = node.right;
-            }
+        stack = new Stack<TreeNode>();
+        PushAllLeft(root);
+        while(stack.Count > 0){
+            TreeNode node = stack.Pop();
+            PushAllLeft(node.right);
+            result.Add(node.val);
         }
         return result;
+    }
+    
+    void PushAllLeft(TreeNode root){
+        while(root != null){
+            stack.Push(root);
+            root = root.left;
+        }
     }
 }

@@ -18,31 +18,29 @@ Note: next() and hasNext() should run in average O(1) time and uses O(h) memory,
 public class BSTIterator {
     // revised from iteratively in-order traverse
     Stack<TreeNode> stack;
-    TreeNode cur;
 
     public BSTIterator(TreeNode root) {
         stack = new Stack<TreeNode>();
-        cur = root;
+        PushAllLeft(root);
     }
 
     /** @return whether we have a next smallest number */
     public bool HasNext() {
-        return cur != null || stack.Count > 0;
+        return stack.Count > 0;
     }
 
     /** @return the next smallest number */
     public int Next() {
-        while(cur != null || stack.Count > 0){
-            while(cur != null){
-                stack.Push(cur);
-                cur = cur.left;
-            }
-            if(stack.Count > 0){
-                cur = stack.Peek().right;
-                break;
-            }
+        TreeNode root = stack.Pop();
+        PushAllLeft(root.right);
+        return root.val;
+    }
+    
+    void PushAllLeft(TreeNode root){
+        while(root != null){
+            stack.Push(root);
+            root = root.left;
         }
-        return stack.Pop().val;
     }
 }
 
