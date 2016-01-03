@@ -21,10 +21,12 @@ public class Solution {
         for (int i = 0; i < nums.Length; i++) {
             diff ^= nums[i];
         }
-        diff &= -diff; // tricky : get the last set bit; get bits numbers' negative/positive: turn all bits (1->0, 0->1), then plus one
+        
+        int lastSetBit = 1;
+        while((lastSetBit & diff) == 0) lastSetBit <<= 1;
         int[] result = new int[2];
         for (int i = 0; i < nums.Length; i++) {
-            if ((nums[i] & diff) != 0) {
+            if ((nums[i] & lastSetBit) != 0) {
                 result[0] ^= nums[i];
             }
             else {
