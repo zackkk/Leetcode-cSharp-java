@@ -70,10 +70,10 @@ public class Solution {
         }
         
         var list = levelNodes.Keys.ToList();
-	    list.Sort();
-	    foreach (var key in list){
-	        result.Add(levelNodes[key]);
-	    }
+        list.Sort();
+        foreach (var key in list){
+            result.Add(levelNodes[key]);
+        }
         return result;
     }
 }
