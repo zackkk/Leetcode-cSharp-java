@@ -17,10 +17,10 @@ public class Solution {
             int sum = carry;
             if(i >= 0) { sum += (a[i] - '0'); i--; }
             if(j >= 0) { sum += (b[j] - '0'); j--; }
-            sb.Append(sum % 2);
+            sb.Insert(0, sum % 2);
             carry = sum / 2;
         }
-        if(carry != 0) sb.Append(carry);
-        return new string(sb.ToString().ToCharArray().Reverse().ToArray());
+        if(carry != 0) sb.Insert(0, carry);
+        return sb.ToString();
     }
 }
