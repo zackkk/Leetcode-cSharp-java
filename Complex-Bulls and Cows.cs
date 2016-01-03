@@ -21,25 +21,20 @@ You may assume that the secret number and your friend's guess only contain digit
 
 
 public class Solution {
-    // two loops - report all occurrance of numbers
-    // ont loop - mark guess_num as negative; secret_num as positive
+    // straight
     public string GetHint(string secret, string guess) {
-        int[] count = new int[10];
+        int[] count_secret = new int[10], count_guess = new int[10];
         int bulls = 0;
         int cows = 0;
         for(int i = 0; i < secret.Length; i++) {
-            int secret_num = secret[i] - '0';
-            int guess_num = guess[i] - '0';
+            int secret_num = secret[i] - '0', guess_num = guess[i] - '0';
             if(secret_num == guess_num) { bulls++; continue; }
             
-            if(count[secret_num] < 0) { cows++; } // this secret_num has happened in guess_num
-            if(count[guess_num] > 0) { cows++; }
-            
-            // start your understanding from here:
-            count[secret_num]++;
-            count[guess_num]--;
+            count_secret[secret_num]++;
+            count_guess[guess_num]++;
         }
         
+        for(int i = 0; i < 10; i++) cows += Math.Min(count_secret[i], count_guess[i]);
         return bulls.ToString() + "A" + cows.ToString() + "B";
     }
 }
