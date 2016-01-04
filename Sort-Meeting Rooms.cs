@@ -18,9 +18,11 @@ return false.
 public class Solution {
     // sort according to start time
     public bool CanAttendMeetings(Interval[] intervals) {
-        Interval[] sorted = intervals.OrderBy(item => item.start).ToArray();
-        for (int i = 1; i < sorted.Length; i++) {
-            if (sorted[i].start < sorted[i - 1].end) return false;
+        List<Interval> list = new List<Interval>(intervals);
+        list.Sort(new Comparison<Interval>((x,y) => x.start - y.start));
+        
+        for (int i = 1; i < list.Count; i++) {
+            if (list[i].start < list[i - 1].end) return false;
         }
         return true;
     }
