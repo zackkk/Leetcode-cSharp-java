@@ -21,8 +21,9 @@ If nums = [1,2,3], a solution is:
 public class Solution {
     // 2^n possibilities: for each number, either take or not
     // mapping: [0,0,0] - []
-    //          [0,0,1] - [3]
+    //          [0,0,1] - [1]
     //          [0,1,0] - [2]
+    //          [1,0,0] - [3]
     //          [1,1,1] - [1,2,3]
     public IList<IList<int>> Subsets(int[] nums) {
         IList<IList<int>> result = new List<IList<int>>();
