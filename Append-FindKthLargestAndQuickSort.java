@@ -4,6 +4,8 @@ import java.util.Map;
 
 // 找K大的元素，可以使用快排的思路
 public class FindKthLargestAndQuickSort {
+    
+    static Random random = new Random();
 
     // 选最右为pivot, 把小于pivot的元素放置于数组的左侧；返回pivot的index：index左侧均小，右侧均大
     private static int partition(int[] nums, int low, int high) {
@@ -18,10 +20,17 @@ public class FindKthLargestAndQuickSort {
         swap(nums, left, high);
         return left;
     }
+    
+    // 加入random后理论上时间复杂度为O(N) 证明略
+    private static int randomPartition(int[] nums, int low, int high) {
+        int r = random.nextInt(high - low + 1) + low;
+        swap(nums, r, high);
+        return partition(nums, low, high);
+    }
 
     // 判断partition后的index：如果target在右侧，则可以忽略左边的元素，直接去右侧寻找
     private static int findKthSmallest(int[] nums, int targetIndex, int low, int high) {
-        int currentIndex = partition(nums, low, high);
+        int currentIndex = randomPartition(nums, low, high);
         if (currentIndex == targetIndex) {
             return nums[currentIndex];
         } else if (currentIndex < targetIndex) {
